@@ -9,6 +9,10 @@
             "email": "klausmergen1@gmail.com"
         }
     ],
+    "require": {
+        "yiisoft/yii2": "~2.0.15"
+
+    },
     "autoload": {
 		"psr-4": {
 			"kmergen\\recaptcha3\\": ""
