@@ -1,0 +1,13 @@
+{
+    "name": "kmergen/yii2-recaptcha3",
+    "description": "An validatator and a widget for Google ReCaptcha 3",
+    "license": "BSD-3-Clause",
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+		"psr-4": {
+			"kmergen\\recaptcha3\\": ""
+		}
+	}
+}
