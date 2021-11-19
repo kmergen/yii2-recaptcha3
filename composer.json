@@ -1,10 +1,14 @@
 {
     "name": "kmergen/yii2-recaptcha3",
-    "description": "An validatator and a widget for Google ReCaptcha 3",
+    "description": "A validatator and a widget for Google ReCaptcha 3",
     "license": "BSD-3-Clause",
-    "require": {
-        "php": ">=5.4.0"
-    },
+    "keywords": ["yii", "yii2", "extension", "recaptcha", "validator"],
+    "authors": [
+        {
+            "name": "Klaus Megen",
+            "email": "klausmergen1@gmail.com"
+        }
+    ],
     "autoload": {
 		"psr-4": {
 			"kmergen\\recaptcha3\\": ""
