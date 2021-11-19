@@ -15,7 +15,7 @@
     },
     "autoload": {
 		"psr-4": {
-			"kmergen\\recaptcha3\\": ""
+			"kmergen\\recaptcha3\\": "src"
 		}
 	}
 }

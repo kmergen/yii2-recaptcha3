@@ -45,7 +45,7 @@ use yii\widgets\InputWidget;
  * @author HimikLab
  * @package himiklab\yii2\recaptcha
  */
-class ReCaptchaWidget extends InputWidget
+class RecaptchaWidget extends InputWidget
 {
     /** @var string reCpaptcha v3 siteKey. */
     public $siteKey;
