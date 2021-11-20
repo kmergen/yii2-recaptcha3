@@ -6,7 +6,6 @@
  * @license http://www.yiiframework.com/license/
  */
 
-
 namespace kmergen\recaptcha3;
 
 use yii\base\Exception;
@@ -113,6 +112,9 @@ class RecaptchaValidator extends Validator
                 $response = $this->getResponse($value);
                 if (isset($response['error-codes'])) {
                     $this->isValid = false;
+                    if ($response['error-codes'][0] === 'timeout-or-duplicate') {
+                        $this->message = 'timeout-or-duplicate';
+                    }
                 } else {
                     if (!isset($response['success'], $response['action'], $response['hostname'], $response['score']) ||
                         $response['success'] !== true ||
