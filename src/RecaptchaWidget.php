@@ -14,16 +14,15 @@ use yii\helpers\Html;
 use yii\widgets\InputWidget;
 
 /**
- * Yii2 Google reCAPTCHA v3 widget.
+ * Yii2 Google recaptcha v3 widget.
  *
  * For example:
  *
  *```php
- * <?= $form->field($model, 'reCaptcha')->widget(
- *  ReCaptcha3::className(),
+ * <?= $form->field($model, 'recaptcha')->widget(
+ *  RecaptchaWidget::className(),
  *  [
- *   'siteKey' => 'your siteKey', // unnecessary is reCaptcha component was set up
- *   'threshold' => 0.5,
+ *   'siteKey' => 'your siteKey', // unnecessary is recaptcha component was set up
  *   'action' => 'homepage',
  *  ]
  * ) ?>
@@ -32,35 +31,34 @@ use yii\widgets\InputWidget;
  * or
  *
  *```php
- * <?= ReCaptcha3::widget([
- *  'name' => 'reCaptcha',
+ * <?= RecaptchaWidget::widget([
+ *  'name' => 'recaptcha',
  *  'siteKey' => 'your siteKey', // unnecessary is reCaptcha component was set up
- *  'threshold' => 0.5,
  *  'action' => 'homepage',
  *  'widgetOptions' => ['class' => 'col-sm-offset-3'],
  * ]) ?>
  *```
  *
  * @see https://developers.google.com/recaptcha/docs/v3
- * @author HimikLab
- * @package himiklab\yii2\recaptcha
+ * @author Klaus Mergen <klausmergen1@gmail.com>
+ * @package kmergen\yii2-recaptcha3
  */
 class RecaptchaWidget extends InputWidget
 {
-    /** @var string reCpaptcha v3 siteKey. */
+    /** @var string recpaptcha v3 siteKey. */
     public $siteKey;
 
-    /** @var string reCaptcha v3 api url  */
+    /** @var string recaptcha v3 api url */
     public $apiUrl;
 
-    /** @var string reCaptcha v3 action for this page. */
+    /** @var string recaptcha v3 action for this page. */
     public $action;
 
-    /** @var string Your JS callback function that's executed when reCAPTCHA executed. */
+    /** @var string Your JS callback function that's executed when recaptcha executed. */
     public $jsCallback;
 
     /** @var string */
-    public $configComponentName = 'recaptcha';
+    public $configComponentName = 'recaptcha3';
 
     public function init()
     {
@@ -68,7 +66,7 @@ class RecaptchaWidget extends InputWidget
         $recaptchaConfig = Yii::$app->get($this->configComponentName, false);
 
         if ($recaptchaConfig->siteKey) {
-            $this->siteKey = $reCaptchaConfig->siteKey;
+            $this->siteKey = $recaptchaConfig->siteKey;
         } else {
             throw new InvalidConfigException('Required `siteKey` param isn\'t set.');
         }
@@ -95,16 +93,21 @@ class RecaptchaWidget extends InputWidget
         $view->registerJs(
             <<<JS
 "use strict";
-document.getElementById('btn-submit').addEventListener('click', function (event) {
-    grecaptcha.ready(function() {
-    grecaptcha.execute("{$this->siteKey}", {action: "{$this->action}"}).then(function(token) {
-        document.getElementById("{$this->getReCaptchaId()}").val = token;
-    });
-});
+ document.addEventListener('DOMContentLoaded', (ev) => {
+     var form = document.forms[0];
+     form.addEventListener('submit', function (event) {
+         event.preventDefault();
+         grecaptcha.ready(function() {
+             grecaptcha.execute("{$this->siteKey}", {action: "{$this->action}"}).then(function(token) {
+                 document.getElementById("{$this->getReCaptchaId()}").value = token;
+                 form.submit();
+             });
+         });
+     });
 });
 
 JS
-            , $view::POS_BEGIN);
+            , $view::POS_END);
 
         $this->customFieldPrepare();
     }
@@ -141,4 +144,4 @@ JS
         return \str_replace(['[]', '][', '[', ']', ' ', '.'], ['', '-', '-', '', '-', '-'], \strtolower($name));
     }
 
- }
+}

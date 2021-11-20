@@ -12,15 +12,14 @@ namespace kmergen\recaptcha3;
  * RecaptchaConfig
  * Global configuration
  *
+ * @see https://developers.google.com/recaptcha/docs/v3
  * @author Klaus Mergen <klausmergen1@gmail.com>
+ * @package kmergen\yii2-recaptcha3
  */
 class RecaptchaConfig
 {
     const API_URL = 'https://www.google.com/recaptcha/api.js';
-    const JS_API_URL_ALTERNATIVE = '//www.recaptcha.net/recaptcha/api.js';
-
     const VERIFY_URL = 'https://www.google.com/recaptcha/api/siteverify';
-    const SITE_VERIFY_URL_ALTERNATIVE = 'https://www.recaptcha.net/recaptcha/api/siteverify';
 
     /** @var string Your sitekey for reCAPTCHA v3. */
     public $siteKey;
@@ -35,7 +34,7 @@ class RecaptchaConfig
     public $verifyUrl;
 
     /** @var boolean Check host name. */
-    public $checkHostName;
+    public $checkHostName = false;
 
     /** @var \yii\httpclient\Request */
     public $httpClientRequest;
