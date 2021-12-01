@@ -35,7 +35,6 @@ use yii\widgets\InputWidget;
  *  'name' => 'recaptcha',
  *  'siteKey' => 'your siteKey', // unnecessary is reCaptcha component was set up
  *  'action' => 'homepage',
- *  'widgetOptions' => ['class' => 'col-sm-offset-3'],
  * ]) ?>
  *```
  *
@@ -94,12 +93,13 @@ class RecaptchaWidget extends InputWidget
             <<<JS
 "use strict";
  document.addEventListener('DOMContentLoaded', (ev) => {
-     var form = document.forms[0];
+     var el = document.getElementById("{$this->getReCaptchaId()}");
+     var form = el.form;
      form.addEventListener('submit', function (event) {
          event.preventDefault();
          grecaptcha.ready(function() {
              grecaptcha.execute("{$this->siteKey}", {action: "{$this->action}"}).then(function(token) {
-                 document.getElementById("{$this->getReCaptchaId()}").value = token;
+                 el.value = token;
                  form.submit();
              });
          });

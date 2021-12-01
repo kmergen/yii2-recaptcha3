@@ -27,10 +27,10 @@ class RecaptchaConfig
     /** @var string Your secret for reCAPTCHA v3. */
     public $secret;
 
-       /** @var string Use [[JS_API_URL_ALTERNATIVE]] when [[JS_API_URL_DEFAULT]] is not accessible. */
+       /** @var string */
     public $apiUrl;
 
-    /** @var string Use [[SITE_VERIFY_URL_ALTERNATIVE]] when [[SITE_VERIFY_URL_DEFAULT]] is not accessible. */
+    /** @var string */
     public $verifyUrl;
 
     /** @var boolean Check host name. */

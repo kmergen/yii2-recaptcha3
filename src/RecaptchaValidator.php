@@ -23,6 +23,9 @@ use Yii;
  */
 class RecaptchaValidator extends Validator
 {
+    const MESSAGE_SCORE_FAILED = 'score_failed';
+    const MESSAGE_TIMEOUT_OR_DUPLICATE = 'timeout-or-duplicate';
+
     /** @var boolean Whether to skip this validator if the input is empty. */
     public $skipOnEmpty = false;
 
@@ -113,7 +116,7 @@ class RecaptchaValidator extends Validator
                 if (isset($response['error-codes'])) {
                     $this->isValid = false;
                     if ($response['error-codes'][0] === 'timeout-or-duplicate') {
-                        $this->message = 'timeout-or-duplicate';
+                        $this->message = self::MESSAGE_TIMEOUT_OR_DUPLICATE;
                     }
                 } else {
                     if (!isset($response['success'], $response['action'], $response['hostname'], $response['score']) ||
@@ -127,7 +130,12 @@ class RecaptchaValidator extends Validator
                     if (\is_callable($this->threshold)) {
                         $this->isValid = (bool)\call_user_func($this->threshold, $response['score']);
                     } else {
-                        $this->isValid = $response['score'] >= $this->threshold;
+                        if ($response['score'] >= $this->threshold) {
+                            $this->isValid = true;
+                        } else {
+                            $this->isValid = false;
+                            $this->message = self::MESSAGE_SCORE_FAILED;
+                        }
                     }
                 }
             }
