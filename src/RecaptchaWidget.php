@@ -89,6 +89,7 @@ class RecaptchaWidget extends InputWidget
             $this->apiUrl . '?' . $arguments,
             ['position' => $view::POS_END]
         );
+
         $view->registerJs(
             <<<JS
 "use strict";

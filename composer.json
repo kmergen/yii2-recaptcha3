@@ -1,6 +1,6 @@
 {
     "name": "kmergen/yii2-recaptcha3",
-    "description": "A validatator and a widget for Google ReCaptcha 3",
+    "description": "A validator and a widget for Google ReCaptcha 3",
     "license": "BSD-3-Clause",
     "keywords": ["yii", "yii2", "extension", "recaptcha", "validator"],
     "authors": [
